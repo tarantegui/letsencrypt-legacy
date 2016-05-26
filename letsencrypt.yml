@@ -1,0 +1,29 @@
+common:
+  image: quay.io/letsencrypt/letsencrypt:latest
+  container_name: create_certificate
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - "/etc/letsencrypt:/etc/letsencrypt"
+    - "/var/lib/letsencrypt:/var/lib/letsencrypt"
+    
+help:
+  extends:
+    service: common
+  command: --help
+
+auth:
+  extends:
+    service: common
+  command: auth
+  
+renew:
+  extends:
+    service: common
+  command: renew
+  
+revoke:
+  extends:
+    service: common
+  command: revoke
